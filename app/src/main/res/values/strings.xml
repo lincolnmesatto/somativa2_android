@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">SomativaApp</string>
+    <string name="todo">todo</string>
+    <string name="image_from_camera">Imagem da Câmera</string>
+    <string name="take_picture">Tirar Foto</string>
+    <string name="titulo">Titulo</string>
+    <string name="salvar">Salvar</string>
+    <string name="ultimo_volume_lido">Último Volume Lido</string>
+    <string name="completo">Completo</string>
+    <string name="nota">Nota</string>
+</resources>
