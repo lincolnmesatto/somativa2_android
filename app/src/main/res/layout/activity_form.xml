@@ -8,8 +8,8 @@
 
     <ImageView
         android:id="@+id/imageViewCamera"
-        android:layout_width="204dp"
-        android:layout_height="268dp"
+        android:layout_width="156dp"
+        android:layout_height="212dp"
         android:layout_marginEnd="25dp"
         android:layout_marginStart="25dp"
         android:layout_marginTop="4dp"
@@ -24,13 +24,14 @@
     <Button
         android:id="@+id/buttonCamera"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="68dp"
-        android:layout_marginTop="32dp"
+        android:layout_height="42dp"
+        android:layout_marginStart="48dp"
+        android:layout_marginTop="28dp"
         android:backgroundTint="#03DAC5"
         android:onClick="buttonCameraClicked"
         android:text="@string/take_picture"
         android:textColor="#000000"
+        android:textSize="14sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageViewCamera" />
 
@@ -76,14 +77,30 @@
     <Button
         android:id="@+id/buttonSave"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_height="40dp"
+        android:layout_marginBottom="16dp"
         android:backgroundTint="#03DAC5"
         android:onClick="btnSaveClicked"
         android:text="@string/salvar"
         android:textColor="#000000"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/buttonSelecionar"
+        app:layout_constraintHorizontal_bias="0.523"
+        app:layout_constraintStart_toStartOf="@+id/buttonCamera" />
+
+    <Button
+        android:id="@+id/buttonSelecionar"
+        android:layout_width="wrap_content"
+        android:layout_height="42dp"
+        android:layout_marginEnd="52dp"
+        android:layout_marginTop="28dp"
+        android:backgroundTint="#03DAC5"
+        android:onClick="btnSaveClicked"
+        android:text="@string/selecionar"
+        android:textColor="#000000"
+        android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.333"
         app:layout_constraintStart_toEndOf="@+id/buttonCamera"
         app:layout_constraintTop_toBottomOf="@+id/imageViewCamera" />
 

@@ -9,12 +9,14 @@ import androidx.core.content.FileProvider;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.view.View;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -34,12 +36,14 @@ public class FormActivity extends AppCompatActivity {
 
     static final int CAMERA_PERMISSION_CODE = 2001;
     static final int CAMERA_INTENT_CODE = 3001;
+    static final int SELECT_PICTURE = 200;
 
     ImageView imageViewCamera;
     EditText editTextTitulo;
     EditText editTextUltimo;
     CheckBox checkBox;
     SeekBar seekBar;
+    Button buttonSelecionar;
 
     String picturePath;
     int position;
@@ -55,6 +59,7 @@ public class FormActivity extends AppCompatActivity {
         editTextUltimo = findViewById(R.id.editTextUltimo);
         checkBox = findViewById(R.id.checkBox);
         seekBar = findViewById(R.id.seekBar);
+        buttonSelecionar = findViewById(R.id.buttonSelecionar);
 
         Bundle extras = getIntent().getExtras();
         if(extras != null){
@@ -68,6 +73,13 @@ public class FormActivity extends AppCompatActivity {
         }else{
             position = -1;
         }
+
+        buttonSelecionar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                imageChooser();
+            }
+        });
     }
 
     @Override
@@ -176,6 +188,23 @@ public class FormActivity extends AppCompatActivity {
                 Toast.makeText(FormActivity.this,"Problema ao pegar a foto da câmera", Toast.LENGTH_LONG).show();
             }
         }
+        if (requestCode == SELECT_PICTURE) {
+            if (resultCode == RESULT_OK) {
+                Uri selectedImageUri = data.getData();
+                if (null != selectedImageUri) {
+                    imageViewCamera.setImageURI(null);
+                    imageViewCamera.setImageURI(selectedImageUri);
+
+                    String[] filePath = { MediaStore.Images.Media.DATA };
+                    Cursor c = getContentResolver().query(selectedImageUri,filePath, null, null, null);
+                    c.moveToFirst();
+                    int columnIndex = c.getColumnIndex(filePath[0]);
+                    picturePath = c.getString(columnIndex);
+                    c.close();
+                    colecao.setCaminhoImg(picturePath);
+                }
+            }
+        }
     }
 
     public void btnSaveClicked(View view){
@@ -194,5 +223,11 @@ public class FormActivity extends AppCompatActivity {
         Intent intent = new Intent(FormActivity.this, MainActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
+    }
+
+    void imageChooser() {
+        Intent i = new Intent();
+        Intent intent = new Intent(Intent.ACTION_PICK,android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        startActivityForResult(intent, SELECT_PICTURE);
     }
 }
